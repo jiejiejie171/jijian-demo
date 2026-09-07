@@ -3,11 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>疾鉴 · 产品原型体验</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23A02636'/%3E%3Ctext x='32' y='43' font-size='36' font-weight='700' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif'%3E%E7%96%BE%3C/text%3E%3C/svg%3E">
+<title>疾鉴・产品原型合集</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{background:#F2F4F6;color:#2B2F33;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.6;-webkit-tap-highlight-color:transparent;}
+body{-webkit-tap-highlight-color:transparent;}
+
+.topnav{position:sticky;top:0;z-index:100;background:#1E4E79;color:#FFFFFF;display:flex;align-items:center;gap:8px;padding:0 12px;min-height:52px;box-shadow:0 2px 8px rgba(20,40,60,.18);flex-wrap:wrap;}
+.topnav .brand{font-size:17px;font-weight:800;letter-spacing:1px;white-space:nowrap;}
+.topnav .brand em{font-style:normal;font-size:12px;font-weight:600;opacity:.8;margin-left:6px;}
+.topnav .tabs{margin-left:auto;display:flex;gap:6px;}
+.topnav .tab{min-height:40px;padding:6px 16px;border:1px solid rgba(255,255,255,.35);border-radius:999px;background:transparent;color:#FFFFFF;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;line-height:1.5;}
+.topnav .tab.active{background:#FFFFFF;color:#1E4E79;border-color:#FFFFFF;}
+@media (max-width:600px){
+  .topnav .brand em{display:none;}
+  .topnav .tab{padding:6px 12px;font-size:14px;}
+}
+@media print{
+  .topnav{display:none !important;}
+}
+
+#viewHome, #viewHome * { margin: 0; padding: 0; box-sizing: border-box; }
+
+#viewHome {
   font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "微软雅黑", sans-serif;
   background: #F2F4F6;
   color: #2C3E50;
@@ -17,12 +37,15 @@ body {
   justify-content: center;
   padding: 24px;
 }
-.page { width: 100%; max-width: 640px; }
-.head {
+
+#viewHome .page { width: 100%; max-width: 640px; }
+
+#viewHome .head {
   text-align: center;
   margin-bottom: 40px;
 }
-.badge {
+
+#viewHome .badge {
   display: inline-block;
   background: #A02636;
   color: #FFFFFF;
@@ -31,9 +54,12 @@ body {
   border-radius: 999px;
   margin-bottom: 20px;
 }
-h1 { font-size: 34px; color: #1E4E79; margin-bottom: 12px; }
-.head p { font-size: 15px; color: #5D6D7E; line-height: 1.8; }
-.card {
+
+#viewHome h1 { font-size: 34px; color: #1E4E79; margin-bottom: 12px; }
+
+#viewHome .head p { font-size: 15px; color: #5D6D7E; line-height: 1.8; }
+
+#viewHome .card {
   background: #FFFFFF;
   border-radius: 16px;
   padding: 28px;
@@ -44,7 +70,8 @@ h1 { font-size: 34px; color: #1E4E79; margin-bottom: 12px; }
   align-items: center;
   text-align: center;
 }
-.card .num {
+
+#viewHome .card .num {
   width: 44px; height: 44px;
   border-radius: 50%;
   background: #E9F1F8;
@@ -54,9 +81,12 @@ h1 { font-size: 34px; color: #1E4E79; margin-bottom: 12px; }
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 14px;
 }
-.card h2 { font-size: 20px; color: #1E4E79; margin-bottom: 10px; }
-.card p { font-size: 14px; color: #5D6D7E; line-height: 1.8; margin-bottom: 18px; }
-.btn {
+
+#viewHome .card h2 { font-size: 20px; color: #1E4E79; margin-bottom: 10px; }
+
+#viewHome .card p { font-size: 14px; color: #5D6D7E; line-height: 1.8; margin-bottom: 18px; }
+
+#viewHome .btn {
   display: inline-block;
   background: #2A6DB5;
   color: #FFFFFF;
@@ -69,27 +99,670 @@ h1 { font-size: 34px; color: #1E4E79; margin-bottom: 12px; }
   line-height: 20px;
   transition: background 0.2s;
 }
-.btn:hover { background: #1E5A9E; }
-.btn:active { background: #1A4F8C; }
-.card.red .btn { background: #A02636; }
-.card.red .btn:hover { background: #8A1F2E; }
-.card.red .btn:active { background: #771A27; }
-.card.red .num { background: #F6E4E6; color: #A02636; }
-.foot {
+
+#viewHome .btn:hover { background: #1E5A9E; }
+
+#viewHome .btn:active { background: #1A4F8C; }
+
+#viewHome .card.red .btn { background: #A02636; }
+
+#viewHome .card.red .btn:hover { background: #8A1F2E; }
+
+#viewHome .card.red .btn:active { background: #771A27; }
+
+#viewHome .card.red .num { background: #F6E4E6; color: #A02636; }
+
+#viewHome .foot {
   text-align: center;
   font-size: 13px;
   color: #85929E;
   margin-top: 12px;
   line-height: 1.8;
 }
+
 @media (max-width: 480px) {
-  h1 { font-size: 28px; }
-  .card { padding: 22px 18px; }
-  .btn { width: 100%; }
+
+  #viewHome h1 { font-size: 28px; }
+
+  #viewHome .card { padding: 22px 18px; }
+
+  #viewHome .btn { width: 100%; }
+
 }
+
+
+#viewHome .btn{border:none;font-family:inherit;cursor:pointer;}
+
+    #viewTree, #viewTree * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    #viewTree {
+      -webkit-text-size-adjust: 100%;
+    }
+
+
+    #viewTree {
+      background: #F2F4F6;
+      color: #2B2F33;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+
+    #viewTree .wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 16px 16px 48px;
+    }
+
+
+    /* 顶部进度指示 */
+    #viewTree .progress {
+      margin: 6px 0 16px;
+    }
+
+
+    #viewTree .progress-text {
+      font-size: 14px;
+      color: #5A6472;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+
+    #viewTree .progress-track {
+      height: 6px;
+      background: #E1E6EB;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+
+    #viewTree .progress-fill {
+      height: 100%;
+      width: 0;
+      background: #2A6DB5;
+      border-radius: 3px;
+      transition: width .3s;
+    }
+
+
+    /* 节点卡片 */
+    #viewTree .node {
+      display: none;
+    }
+
+
+    #viewTree .card {
+      background: #FFFFFF;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(30, 50, 80, .08);
+      overflow: hidden;
+    }
+
+
+    #viewTree .card-head {
+      padding: 18px 20px;
+      color: #FFFFFF;
+    }
+
+
+    #viewTree .card-head.home {
+      background: #A02636;
+    }
+
+
+    #viewTree .card-head.normal {
+      background: #1E4E79;
+    }
+
+
+    #viewTree .card-head h1 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+
+    #viewTree .card-head .sub {
+      font-size: 16px;
+      opacity: .92;
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+
+    #viewTree .card-body {
+      padding: 20px;
+    }
+
+
+    /* 核心问题 */
+    #viewTree .qbox {
+      background: #E9F1F8;
+      border-left: 4px solid #1E4E79;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 14px;
+      margin: 4px 0 12px;
+      font-size: 16px;
+    }
+
+
+    #viewTree .qbox .qlabel {
+      display: block;
+      font-size: 13px;
+      color: #5B7B9B;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+
+    /* 正文列表 */
+    #viewTree .olist {
+      list-style: none;
+      margin: 10px 0;
+    }
+
+
+    #viewTree .olist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 7px 0;
+      font-size: 16px;
+    }
+
+
+    #viewTree .olist .num {
+      flex: 0 0 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #1E4E79;
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+
+    /* 结论建议 / 最终定性标签 */
+    #viewTree .concl-caption {
+      font-size: 13px;
+      color: #8A929B;
+      margin: 14px 0 6px;
+    }
+
+
+    #viewTree .tag {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+
+    #viewTree .tag.green {
+      background: #2E7D32;
+    }
+
+
+    #viewTree .tag.red {
+      background: #C62828;
+    }
+
+
+    #viewTree .tag.blue {
+      background: #2A6DB5;
+    }
+
+
+    /* 按钮 */
+    #viewTree .btn {
+      display: block;
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+
+    #viewTree .btn:active {
+      opacity: .9;
+    }
+
+
+    #viewTree .btn:focus-visible {
+      outline: 2px solid #1E4E79;
+      outline-offset: 2px;
+    }
+
+
+    #viewTree .btn-next {
+      background: #2A6DB5;
+      color: #FFFFFF;
+      margin-top: 14px;
+    }
+
+
+    #viewTree .btn-next:hover {
+      background: #2565A8;
+    }
+
+
+    #viewTree .btn-back {
+      background: #FFFFFF;
+      color: #4A5560;
+      border: 1px solid #C9D2DB;
+      margin-top: 10px;
+    }
+
+
+    #viewTree .btn-back:hover {
+      background: #F2F5F8;
+    }
+
+
+    /* 分支选项（低风险 / 高风险） */
+    #viewTree .opt {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: #FFFFFF;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 12px;
+    }
+
+
+    #viewTree .opt:active {
+      opacity: .9;
+    }
+
+
+    #viewTree .opt.low {
+      background: #2E7D32;
+    }
+
+
+    #viewTree .opt.low:hover {
+      background: #276A2A;
+    }
+
+
+    #viewTree .opt.high {
+      background: #C62828;
+    }
+
+
+    #viewTree .opt.high:hover {
+      background: #B02424;
+    }
+
+
+    #viewTree .opt .opt-title {
+      display: block;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+
+    #viewTree .opt .opt-cond {
+      display: block;
+      font-size: 14px;
+      margin-top: 6px;
+      line-height: 1.55;
+      opacity: .96;
+    }
+
+
+    #viewTree .opt .opt-tag {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 2px 12px;
+      border: 1px solid rgba(255, 255, 255, .85);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+
+    /* 年龄适配切换 */
+    #viewTree .agetoggle {
+      display: flex;
+      gap: 10px;
+      margin: 14px 0 4px;
+    }
+
+
+    #viewTree .agebtn {
+      flex: 1;
+      min-height: 48px;
+      border: 1px solid #C9D2DB;
+      background: #FFFFFF;
+      color: #4A5560;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+
+    #viewTree .agebtn.active {
+      background: #2A6DB5;
+      border-color: #2A6DB5;
+      color: #FFFFFF;
+    }
+
+
+    #viewTree .ageline {
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background: #F7F9FB;
+      font-size: 15px;
+      margin-top: 8px;
+      transition: background .2s, border-color .2s;
+    }
+
+
+    #viewTree .ageline.hl {
+      background: #E9F1F8;
+      border-color: #1E4E79;
+      font-weight: 600;
+    }
+
+
+    /* 误区条目：谣言 → 真相 */
+    #viewTree .rumor {
+      margin-top: 12px;
+      border: 1px solid #E7ECF1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+
+    #viewTree .rumor .ru {
+      background: #FBF3F3;
+      border-left: 4px solid #C62828;
+      padding: 10px 14px;
+      font-size: 15px;
+    }
+
+
+    #viewTree .rumor .truth {
+      background: #F4FAF4;
+      border-left: 4px solid #2E7D32;
+      padding: 10px 14px;
+      font-size: 15px;
+    }
+
+
+    #viewTree .rumor b {
+      font-size: 13px;
+      margin-right: 6px;
+    }
+
+
+    #viewTree .rumor .ru b {
+      color: #C62828;
+    }
+
+
+    #viewTree .rumor .truth b {
+      color: #2E7D32;
+    }
+
+
+    /* 最终总结 */
+    #viewTree .summary {
+      background: #E9F1F8;
+      border-left: 4px solid #2A6DB5;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 14px;
+      margin-top: 14px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+
+    /* 权威标注与风险边界 */
+    #viewTree .authority {
+      font-size: 13px;
+      color: #9AA3AD;
+      margin-top: 14px;
+    }
+
+
+    #viewTree .riskline {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #EDF0F3;
+      font-size: 13px;
+      color: #9AA3AD;
+    }
+
+
+    #viewTree .cap {
+      color: #B3BAC2;
+    }
+
+
+    /* 节点 2 说明文字 */
+    #viewTree .explain {
+      font-size: 14px;
+      color: #8A929B;
+      margin-top: 10px;
+    }
+
+
+    @media (max-width:600px) {
+
+      #viewTree .wrap {
+        padding: 12px 12px 40px;
+      }
+
+
+      #viewTree .card-head h1 {
+        font-size: 22px;
+      }
+
+    }
+
+
+    @media print {
+
+      #viewTree, #viewTree * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+
+      #viewTree .card {
+        box-shadow: none;
+      }
+
+
+      #viewTree {
+        background: #FFFFFF;
+      }
+
+    }
+
+  
+#viewQuiz, #viewQuiz * {box-sizing:border-box;margin:0;padding:0;}
+
+#viewQuiz {-webkit-text-size-adjust:100%;}
+
+#viewQuiz {background:#F2F4F6;color:#2B2F33;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.6;-webkit-tap-highlight-color:transparent;}
+
+#viewQuiz .wrap {max-width:800px;margin:0 auto;padding:16px 16px 48px;}
+
+/* 顶部进度指示 */
+#viewQuiz .progress {margin:6px 0 16px;}
+
+#viewQuiz .progress-text {font-size:14px;color:#5A6472;font-weight:600;margin-bottom:6px;}
+
+#viewQuiz .progress-track {height:6px;background:#E1E6EB;border-radius:3px;overflow:hidden;}
+
+#viewQuiz .progress-fill {height:100%;width:0;background:#2A6DB5;border-radius:3px;transition:width .3s;}
+
+/* 页面视图 */
+#viewQuiz .view {display:none;}
+
+#viewQuiz .card {background:#FFFFFF;border-radius:10px;box-shadow:0 2px 10px rgba(30,50,80,.08);overflow:hidden;}
+
+#viewQuiz .card-head {padding:18px 20px;color:#FFFFFF;background:#1E4E79;}
+
+#viewQuiz .card-head h1 {font-size:24px;font-weight:700;line-height:1.4;}
+
+#viewQuiz .card-head .sub {font-size:16px;opacity:.92;margin-top:4px;line-height:1.5;}
+
+#viewQuiz .card-body {padding:20px;}
+
+/* 题目头部 */
+#viewQuiz .qhead {background:#1E4E79;color:#FFFFFF;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+
+#viewQuiz .qhead .qnum {font-size:18px;font-weight:700;}
+
+#viewQuiz .qhead .dim {font-size:13px;border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:2px 10px;font-weight:600;white-space:nowrap;}
+
+#viewQuiz .qtopic {font-size:18px;font-weight:700;line-height:1.6;margin:4px 0 14px;}
+
+/* 选项 */
+#viewQuiz .optrow {display:flex;align-items:flex-start;gap:12px;width:100%;min-height:48px;border:1.5px solid #DDE3E9;background:#FFFFFF;border-radius:8px;padding:12px 14px;font-size:16px;font-family:inherit;color:#2B2F33;text-align:left;cursor:pointer;margin-bottom:10px;line-height:1.5;transition:border-color .15s,background-color .15s;}
+
+#viewQuiz .optrow:hover {border-color:#9FBBD8;}
+
+#viewQuiz .optrow .letter {flex:0 0 28px;height:28px;border-radius:50%;background:#EFF3F7;color:#4A5560;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;margin-top:1px;}
+
+#viewQuiz .optrow.sel {border-color:#2A6DB5;background:#E9F1F8;}
+
+#viewQuiz .optrow.sel .letter {background:#2A6DB5;color:#FFFFFF;}
+
+/* 按钮 */
+#viewQuiz .btn {display:block;width:100%;min-height:48px;padding:12px 16px;border:none;border-radius:8px;font-size:16px;font-weight:600;font-family:inherit;line-height:1.5;cursor:pointer;}
+
+#viewQuiz .btn:active {opacity:.9;}
+
+#viewQuiz .btn:focus-visible {outline:2px solid #1E4E79;outline-offset:2px;}
+
+#viewQuiz .btn-next {background:#1E4E79;color:#FFFFFF;margin-top:8px;}
+
+#viewQuiz .btn-next:hover {background:#18405F;}
+
+#viewQuiz .btn-next.disabled {opacity:.45;cursor:not-allowed;}
+
+#viewQuiz .btn-back {background:#FFFFFF;color:#4A5560;border:1px solid #C9D2DB;margin-top:10px;}
+
+#viewQuiz .btn-back:hover {background:#F2F5F8;}
+
+/* 首页维度一览 */
+#viewQuiz .dimchips {display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px;}
+
+#viewQuiz .dimchip {background:#F2F5F8;border:1px solid #E1E6EB;color:#4A5560;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;}
+
+/* 结果页 */
+#viewQuiz .score-wrap {text-align:center;padding:6px 0 16px;}
+
+#viewQuiz .score-num {font-size:56px;font-weight:800;color:#1E4E79;line-height:1.2;}
+
+#viewQuiz .score-unit {font-size:18px;color:#5A6472;font-weight:600;}
+
+#viewQuiz .level-badge {display:inline-block;background:#1E4E79;color:#FFFFFF;border-radius:999px;padding:6px 20px;font-size:16px;font-weight:700;margin-top:8px;}
+
+#viewQuiz .score-sub {font-size:14px;color:#8A929B;margin-top:8px;}
+
+#viewQuiz .divider {border:none;border-top:1px solid #EDF0F3;margin:16px 0;}
+
+#viewQuiz .sec-title {font-size:17px;font-weight:700;margin-bottom:8px;}
+
+#viewQuiz .dim-row {margin-bottom:14px;}
+
+#viewQuiz .dim-head {display:flex;justify-content:space-between;align-items:baseline;font-size:16px;}
+
+#viewQuiz .dim-name {font-weight:700;}
+
+#viewQuiz .dim-rate {font-weight:700;color:#2A6DB5;font-size:18px;}
+
+#viewQuiz .dim-bar {height:8px;background:#E1E6EB;border-radius:4px;overflow:hidden;margin-top:6px;}
+
+#viewQuiz .dim-fill {height:100%;background:#2A6DB5;border-radius:4px;width:0;transition:width .4s;}
+
+#viewQuiz .dim-sub {font-size:13px;color:#8A929B;margin-top:4px;}
+
+#viewQuiz .weak-item {display:flex;gap:8px;align-items:flex-start;padding:8px 0;font-size:15px;}
+
+#viewQuiz .weak-name {color:#E67E22;font-weight:700;white-space:nowrap;}
+
+/* 错题回顾 */
+#viewQuiz .wrong-chips {display:flex;flex-wrap:wrap;gap:8px;}
+
+#viewQuiz .wrong-chip {display:inline-block;background:#FBF3F3;border:1px solid #E8C7C7;color:#8C3A3A;border-radius:999px;padding:4px 14px;font-size:14px;font-weight:600;}
+
+/* 权威标注与风险边界 */
+#viewQuiz .authority {font-size:13px;color:#9AA3AD;margin-top:14px;}
+
+#viewQuiz .riskline {margin-top:12px;padding-top:10px;border-top:1px solid #EDF0F3;font-size:13px;color:#9AA3AD;}
+
+#viewQuiz .cap {color:#B3BAC2;}
+
+@media (max-width:600px){
+
+  #viewQuiz .wrap {padding:12px 12px 40px;}
+
+  #viewQuiz .card-head h1 {font-size:22px;}
+
+  #viewQuiz .score-num {font-size:48px;}
+
+}
+
+@media print{
+
+  #viewQuiz, #viewQuiz * {-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+  #viewQuiz .card {box-shadow:none;}
+
+  #viewQuiz {background:#FFFFFF;}
+
+}
+
+
 </style>
 </head>
 <body>
+<nav class="topnav">
+  <span class="brand">疾鉴<em>产品原型合集</em></span>
+  <span class="tabs">
+    <button class="tab active" id="tabHome" onclick="showView('home')">首页</button>
+    <button class="tab" id="tabTree" onclick="showView('tree')">决策树</button>
+    <button class="tab" id="tabQuiz" onclick="showView('quiz')">测评</button>
+  </span>
+</nav>
+<div id="viewHome" style="display:flex;">
+
 <div class="page">
   <div class="head">
     <span class="badge">疾鉴 · 产品原型</span>
@@ -101,17 +774,476 @@ h1 { font-size: 34px; color: #1E4E79; margin-bottom: 12px; }
     <div class="num">1</div>
     <h2>高血压疾病认知决策树</h2>
     <p>从「发现血压偏高」出发，按 6 级决策路径完成风险判断分流、复测指引、就医边界、日常管控与误区辟谣。</p>
-    <a class="btn" href="decision-tree.html">进入决策树体验</a>
+    <button class="btn" onclick="showView('tree')">进入决策树体验</button>
   </div>
 
   <div class="card">
     <div class="num">2</div>
     <h2>高血压健康素养测评</h2>
     <p>10 道单选题覆盖四大维度，百分制评分，自动生成维度正确率、薄弱项分析与错题回顾。</p>
-    <a class="btn" href="quiz.html">进入测评体验</a>
+    <button class="btn" onclick="showView('quiz')">进入测评体验</button>
   </div>
 
   <div class="foot">本页面为产品原型演示，内容仅用于健康科普教育，不构成医疗诊断或治疗建议。</div>
 </div>
+
+</div>
+<div id="viewTree" style="display:none;">
+
+  <div class="wrap">
+    <div class="progress">
+      <div class="progress-text" id="progTextT">首页</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progFillT"></div>
+      </div>
+    </div>
+
+    <!-- 节点 0：首页入口（第 0 级） -->
+    <div class="node" id="n0" style="display:block;">
+      <div class="card">
+        <div class="card-head home">
+          <h1>发现血压偏高</h1>
+          <div class="sub">疾病认知决策树・高血压版</div>
+        </div>
+        <div class="card-body">
+          <p>身体出现异常信号，按真实决策路径逐步判断，获取对应健康建议</p>
+          <button class="btn btn-next" onclick="goTo(1)">开始判断</button>
+          <div class="authority"><span class="cap">权威标注：</span>依据《中国高血压防治指南（2024 年修订版）》</div>
+          <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊断建议</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 节点 1：异常识别（第 1 级） -->
+    <div class="node" id="n1">
+      <div class="card">
+        <div class="card-head normal">
+          <h1>单次测量偏高 = 确诊高血压吗？</h1>
+        </div>
+        <div class="card-body">
+          <div class="qbox"><span class="qlabel">核心问题</span>血压 150/95mmHg 意味着什么？单次测量偏高能否确诊？</div>
+          <ol class="olist">
+            <li><span class="num">1</span><span>单次血压升高不代表确诊高血压，需先排除测量误差、情绪激动、运动后、憋尿等干扰因素</span></li>
+            <li><span class="num">2</span><span>标准测量需安静休息至少 5 分钟，取坐位上臂与心脏同高位置测量</span></li>
+          </ol>
+          <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》第 3 章第 2 节</div>
+          <button class="btn btn-next" onclick="goTo(2)">下一步，判断风险程度</button>
+          <button class="btn btn-back" onclick="goTo(0)">返回上一步</button>
+          <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊断建议</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 节点 2：风险判断（第 2 级・核心分流节点） -->
+    <div class="node" id="n2">
+      <div class="card">
+        <div class="card-head normal">
+          <h1>你的情况严重吗？</h1>
+        </div>
+        <div class="card-body">
+          <div class="qbox"><span class="qlabel">核心问题</span>收缩压和舒张压哪个更重要？伴随头痛 / 视物模糊吗？</div>
+          <p class="explain">请根据自身血压数值和伴随症状选择对应路径</p>
+          <button class="opt low" onclick="goTo(3)">
+            <span class="opt-title">低风险・仅单次偏高，无不适症状</span>
+            <span class="opt-cond">判定条件：血压＜160/100mmHg，无头痛、头晕、胸闷、视物模糊等症状</span>
+            <span class="opt-tag">建议复测观察</span>
+          </button>
+          <button class="opt high" onclick="goTo(4)">
+            <span class="opt-title">高风险・血压明显升高或伴随不适</span>
+            <span class="opt-cond">判定条件：血压≥160/100mmHg，或伴随头痛、头晕、胸闷、视物模糊等症状</span>
+            <span class="opt-tag">建议尽快就医</span>
+          </button>
+          <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》</div>
+          <button class="btn btn-back" onclick="goTo(1)">返回上一步</button>
+          <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊断建议</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 节点 3：复测指引（第 3 级・低风险路径专属） -->
+    <div class="node" id="n3">
+      <div class="card">
+        <div class="card-head normal">
+          <h1>怎么复测才准确？</h1>
+        </div>
+        <div class="card-body">
+          <div class="qbox"><span class="qlabel">核心问题</span>观察周期与记录方法是什么？</div>
+          <ol class="olist">
+            <li><span class="num">1</span><span>规范测量姿势：坐位、安静休息 5 分钟、上臂与心脏同高、不说话不憋尿</span></li>
+            <li><span class="num">2</span><span>不同日期测量 2 次及以上，每次测量 2-3 遍取平均值</span></li>
+            <li><span class="num">3</span><span>做好记录，标注测量时间、数值、当时状态</span></li>
+          </ol>
+          <div class="concl-caption">结论建议</div>
+          <span class="tag green">建议复测观察，多次均偏高需警惕</span>
+          <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》</div>
+          <button class="btn btn-next" onclick="node5Prev=3;goTo(5)">下一步，日常管理建议</button>
+          <button class="btn btn-back" onclick="goTo(2)">返回上一步</button>
+          <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊断建议</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 节点 4：就医边界（第 4 级・高风险路径专属） -->
+    <div class="node" id="n4">
+      <div class="card">
+        <div class="card-head normal">
+          <h1>什么情况必须去医院？</h1>
+        </div>
+        <div class="card-body">
+          <div class="qbox"><span class="qlabel">核心问题</span>挂什么科？就医前该做什么准备？</div>
+          <ol class="olist">
+            <li><span class="num">1</span><span>建议就诊科室：心内科</span></li>
+            <li><span class="num">2</span><span>就医前准备：暂停剧烈运动、充分休息、携带既往血压测量记录</span></li>
+            <li><span class="num">3</span><span>若出现胸痛、意识模糊等紧急情况，请立即拨打 120</span></li>
+          </ol>
+          <div class="concl-caption">结论建议</div>
+          <span class="tag red">建议尽快就医</span>
+          <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》</div>
+          <button class="btn btn-next" onclick="node5Prev=4;goTo(5)">下一步，日常管理建议</button>
+          <button class="btn btn-back" onclick="goTo(2)">返回上一步</button>
+          <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊疗建议</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 节点 5：日常管控（第 5 级・两条路径汇聚） -->
+    <div class="node" id="n5">
+      <div class="card">
+        <div class="card-head normal">
+          <h1>平时该做些什么？</h1>
+        </div>
+        <div class="card-body">
+          <div class="qbox"><span class="qlabel">核心问题</span>在家做什么能稳血压？</div>
+          <ol class="olist">
+            <li><span class="num">1</span><span>饮食：低盐饮食，每日食盐＜5 克，减少高脂高糖食物</span></li>
+            <li><span class="num">2</span><span>运动：规律有氧运动，如快走、慢跑，每周≥150 分钟</span></li>
+            <li><span class="num">3</span><span>监测：定期监测血压，做好记录</span></li>
+            <li><span class="num">4</span><span>作息：避免熬夜、长期精神紧张，戒烟限酒</span></li>
+          </ol>
+          <div class="agetoggle">
+            <button class="agebtn" id="ageBtnY" onclick="toggleAge('y')">中青年</button>
+            <button class="agebtn" id="ageBtnO" onclick="toggleAge('o')">老年</button>
+          </div>
+          <div class="ageline" id="ageLineY">中青年：重点关注生活方式干预，排查继发性高血压因素</div>
+          <div class="ageline" id="ageLineO">老年：重点关注体位性低血压、合并症与跌倒风险</div>
+          <div class="concl-caption">结论建议</div>
+          <span class="tag blue">建议日常管理，定期监测</span>
+          <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》</div>
+          <button class="btn btn-next" onclick="goTo(6)">下一步，避开常见误区</button>
+          <button class="btn btn-back" onclick="goTo(node5Prev)">返回上一步</button>
+          <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成治疗建议</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 节点 6：误区辟谣（第 6 级・最终终点） -->
+    <div class="node" id="n6">
+      <div class="card">
+        <div class="card-head normal">
+          <h1>流行说法哪些是坑？</h1>
+        </div>
+        <div class="card-body">
+          <div class="qbox"><span class="qlabel">核心问题</span>流行说法哪些是谣言？</div>
+          <div class="rumor">
+            <div class="ru"><b>谣言</b>「吃芹菜 / 喝芹菜汁能根治高血压」</div>
+            <div class="truth"><b>真相</b>食物不能替代药物治疗，芹菜仅可作为健康饮食的一部分</div>
+          </div>
+          <div class="rumor">
+            <div class="ru"><b>谣言</b>「血压正常了就能自行停药」</div>
+            <div class="truth"><b>真相</b>血压正常往往是药物维持的结果，停药后多会反弹，减药停药需遵医嘱</div>
+          </div>
+          <div class="rumor">
+            <div class="ru"><b>谣言</b>「没有不舒服就不用管血压」</div>
+            <div class="truth"><b>真相</b>高血压早期多无症状，但血管损害持续存在，规范监测与随访是关键</div>
+          </div>
+          <div class="summary">最终总结：血压管理需遵循医学指南，科学管控，不信偏方谣言</div>
+          <div class="concl-caption">最终定性</div>
+          <span class="tag blue">建议日常管理 + 定期监测</span>
+          <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》</div>
+          <button class="btn btn-next" onclick="resetAll();goTo(0)">重新开始</button>
+          <button class="btn btn-back" onclick="goTo(5)">返回上一步</button>
+          <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊断或治疗建议</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+</div>
+<div id="viewQuiz" style="display:none;">
+
+<div class="wrap">
+  <div class="progress">
+    <div class="progress-text" id="progText">首页</div>
+    <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+  </div>
+
+  <!-- 首页 -->
+  <div class="view" id="vHome" style="display:block;">
+    <div class="card">
+      <div class="card-head">
+        <h1>高血压健康素养测评</h1>
+        <div class="sub">疾病认知完整度量化评分・四大能力维度</div>
+      </div>
+      <div class="card-body">
+        <p>共 10 道单选题，满分 100 分。题目覆盖风险识别、就医判断、谣言辨别、日常管理四大维度，完成后自动生成总分、各维度正确率与薄弱项分析。</p>
+        <div class="dimchips">
+          <span class="dimchip">风险识别・3 题</span>
+          <span class="dimchip">就医判断・2 题</span>
+          <span class="dimchip">谣言辨别・2 题</span>
+          <span class="dimchip">日常管理・3 题</span>
+        </div>
+        <button class="btn btn-next" onclick="startQuiz()">开始测评</button>
+        <div class="authority"><span class="cap">权威标注：</span>依据《中国高血压防治指南（2024 年修订版）》</div>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本测评仅为健康素养评估，不构成诊断建议</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 答题页 -->
+  <div class="view" id="vQuiz">
+    <div class="card">
+      <div class="qhead">
+        <span class="qnum" id="qNum">第 1 题</span>
+        <span class="dim" id="qDim">风险识别</span>
+      </div>
+      <div class="card-body">
+        <div class="qtopic" id="qTopic"></div>
+        <div id="optsWrap"></div>
+        <button class="btn btn-next" id="btnNext" onclick="nextQ()">下一题</button>
+        <button class="btn btn-back" id="btnPrev" onclick="prevQ()" style="display:none;">上一题</button>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本测评仅为健康素养评估，不构成诊断建议</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 结果页 -->
+  <div class="view" id="vResult">
+    <div class="card">
+      <div class="card-head">
+        <h1>测评结果</h1>
+      </div>
+      <div class="card-body">
+        <div class="score-wrap">
+          <div><span class="score-num" id="rScore">0</span><span class="score-unit"> 分</span></div>
+          <div><span class="level-badge" id="rLevel"></span></div>
+          <div class="score-sub" id="rSub"></div>
+        </div>
+        <hr class="divider">
+        <div class="sec-title">维度正确率</div>
+        <div id="dimWrap"></div>
+        <hr class="divider">
+        <div class="sec-title">薄弱项分析</div>
+        <div id="weakWrap"></div>
+        <hr class="divider">
+        <div class="sec-title">错题回顾</div>
+        <div id="wrongWrap"></div>
+        <div class="authority"><span class="cap">权威标注：</span>依据《中国高血压防治指南（2024 年修订版）》</div>
+        <button class="btn btn-next" onclick="restart()">重新答题</button>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本测评仅为健康素养评估，不构成诊断建议</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+<script>
+
+function showView(v){
+  document.getElementById('viewHome').style.display = (v==='home')?'flex':'none';
+  document.getElementById('viewTree').style.display = (v==='tree')?'block':'none';
+  document.getElementById('viewQuiz').style.display = (v==='quiz')?'block':'none';
+  document.getElementById('tabHome').classList.toggle('active', v==='home');
+  document.getElementById('tabTree').classList.toggle('active', v==='tree');
+  document.getElementById('tabQuiz').classList.toggle('active', v==='quiz');
+  window.scrollTo(0,0);
+}
+
+    var PROGRESS_TEXT = ['首页', '第 1 级 / 共 6 级・异常识别', '第 2 级 / 共 6 级・风险判断', '第 3 级 / 共 6 级・复测指引', '第 4 级 / 共 6 级・就医边界', '第 5 级 / 共 6 级・日常管控', '第 6 级 / 共 6 级・误区辟谣'];
+    var node5Prev = 3;
+    var ageMode = null;
+
+    function goTo(id) {
+      for (var i = 0; i <= 6; i++) {
+        document.getElementById('n' + i).style.display = 'none';
+      }
+      document.getElementById('n' + id).style.display = 'block';
+      document.getElementById('progTextT').textContent = PROGRESS_TEXT[id];
+      document.getElementById('progFillT').style.width = (id / 6 * 100) + '%';
+      window.scrollTo(0, 0);
+    }
+
+    function toggleAge(m) {
+      ageMode = (ageMode === m) ? null : m;
+      document.getElementById('ageBtnY').classList.toggle('active', ageMode === 'y');
+      document.getElementById('ageBtnO').classList.toggle('active', ageMode === 'o');
+      document.getElementById('ageLineY').classList.toggle('hl', ageMode === 'y');
+      document.getElementById('ageLineO').classList.toggle('hl', ageMode === 'o');
+    }
+
+    function resetAll() {
+      ageMode = null;
+      document.getElementById('ageBtnY').classList.remove('active');
+      document.getElementById('ageBtnO').classList.remove('active');
+      document.getElementById('ageLineY').classList.remove('hl');
+      document.getElementById('ageLineO').classList.remove('hl');
+      node5Prev = 3;
+    }
+  
+var QUESTIONS = [
+  {q:'以下哪种血压测量结果最需要警惕高血压风险？',opts:['安静状态下收缩压 118/76mmHg','运动后立即测量 145/90mmHg','不同日期安静状态下两次均为 148/92mmHg','情绪激动时测量 150/95mmHg'],ans:2,dim:'风险识别'},
+  {q:'以下哪项不属于高血压的高危因素？',opts:['长期高盐饮食','规律有氧运动','家族有高血压病史','长期熬夜、精神压力大'],ans:1,dim:'风险识别'},
+  {q:'出现以下哪种情况属于高血压急症，需要立即就医？',opts:['血压 135/85mmHg，无不适','血压 165/105mmHg，伴随轻微头晕','血压 180/120mmHg，伴随胸痛、意识模糊','血压 140/90mmHg，偶尔头痛'],ans:2,dim:'风险识别'},
+  {q:'首次发现血压偏高且无明显不适，正确的做法是？',opts:['立即自行购买降压药服用','规范复测后仍偏高，前往心内科就诊','直接去医院输液降压','觉得没事，不用管'],ans:1,dim:'就医判断'},
+  {q:'怀疑自己有高血压，优先选择挂哪个科室？',opts:['骨科','心内科','皮肤科','急诊科'],ans:1,dim:'就医判断'},
+  {q:'以下说法正确的是？',opts:['吃芹菜可以根治高血压，不用吃药','血压正常了就可以自行停药','保健品不能替代降压药物治疗','喝降压茶可以彻底治愈高血压'],ans:2,dim:'谣言辨别'},
+  {q:'关于高血压的认知，以下哪项是谣言？',opts:['高血压需要长期规范管理','低盐饮食有助于控制血压','没有头晕头痛就等于没有高血压','戒烟限酒有利于血压稳定'],ans:2,dim:'谣言辨别'},
+  {q:'高血压日常饮食中，每日食盐摄入量建议不超过多少？',opts:['10 克','8 克','5 克','3 克'],ans:2,dim:'日常管理'},
+  {q:'以下哪种运动方式最适合高血压患者日常锻炼？',opts:['百米冲刺','快走、慢跑等有氧运动','大重量举重','熬夜后剧烈运动'],ans:1,dim:'日常管理'},
+  {q:'关于家庭血压测量，以下做法正确的是？',opts:['憋尿时测量','安静休息 5 分钟后，坐位上臂与心脏同高测量','运动后立刻测量','测量时说话、玩手机'],ans:1,dim:'日常管理'}
+];
+var DIMS = [
+  {name:'风险识别',idx:[0,1,2]},
+  {name:'就医判断',idx:[3,4]},
+  {name:'谣言辨别',idx:[5,6]},
+  {name:'日常管理',idx:[7,8,9]}
+];
+var SUGGEST = {
+  '风险识别':'建议加强血压异常信号与高危因素的学习，定期监测血压',
+  '就医判断':'建议了解正确的就医时机与科室选择，避免延误或过度就医',
+  '谣言辨别':'建议关注权威医学科普，警惕偏方与虚假健康信息',
+  '日常管理':'建议学习科学的饮食、运动与血压测量方法，建立健康生活习惯'
+};
+var answers = [];
+for(var i=0;i<10;i++){ answers.push(null); }
+var cur = 0;
+
+function renderOptions(){
+  var q = QUESTIONS[cur], html = '', L = ['A','B','C','D'];
+  for(var i=0;i<4;i++){
+    html += '<button class="optrow' + (answers[cur]===i ? ' sel' : '') + '" onclick="pick(' + i + ')"><span class="letter">' + L[i] + '</span><span>' + q.opts[i] + '</span></button>';
+  }
+  document.getElementById('optsWrap').innerHTML = html;
+}
+
+function updateNextState(){
+  document.getElementById('btnNext').classList.toggle('disabled', answers[cur] === null);
+}
+
+function renderQuestion(){
+  document.getElementById('qNum').textContent = '第 ' + (cur+1) + ' 题';
+  document.getElementById('qDim').textContent = QUESTIONS[cur].dim;
+  document.getElementById('qTopic').textContent = QUESTIONS[cur].q;
+  document.getElementById('progText').textContent = '第 ' + (cur+1) + ' 题 / 共 10 题';
+  document.getElementById('progFill').style.width = ((cur+1)/10*100) + '%';
+  document.getElementById('btnPrev').style.display = (cur === 0) ? 'none' : 'block';
+  document.getElementById('btnNext').textContent = (cur === 9) ? '提交测评' : '下一题';
+  renderOptions();
+  updateNextState();
+}
+
+function pick(i){
+  answers[cur] = i;
+  renderOptions();
+  updateNextState();
+}
+
+function nextQ(){
+  if(answers[cur] === null){ return; }
+  if(cur === 9){ showResult(); return; }
+  cur++;
+  renderQuestion();
+}
+
+function prevQ(){
+  if(cur > 0){ cur--; renderQuestion(); }
+}
+
+function computeResult(){
+  var correct = 0;
+  for(var i=0;i<10;i++){ if(answers[i] === QUESTIONS[i].ans){ correct++; } }
+  var score = correct * 10;
+  var level;
+  if(score >= 90){ level = '健康素养优秀'; }
+  else if(score >= 70){ level = '健康素养良好'; }
+  else if(score >= 60){ level = '健康素养及格'; }
+  else{ level = '健康素养待提升'; }
+  var dims = [], min = 101;
+  for(var d=0;d<DIMS.length;d++){
+    var c = 0;
+    for(var k=0;k<DIMS[d].idx.length;k++){ if(answers[DIMS[d].idx[k]] === QUESTIONS[DIMS[d].idx[k]].ans){ c++; } }
+    var rate = Math.round(c / DIMS[d].idx.length * 100);
+    dims.push({name:DIMS[d].name,correct:c,total:DIMS[d].idx.length,rate:rate});
+    if(rate < min){ min = rate; }
+  }
+  var weak = [];
+  for(var d2=0;d2<dims.length;d2++){ if(dims[d2].rate === min){ weak.push(dims[d2].name); } }
+  var wrongs = [];
+  for(var i2=0;i2<10;i2++){ if(answers[i2] !== QUESTIONS[i2].ans){ wrongs.push({no:i2+1,dim:QUESTIONS[i2].dim}); } }
+  return {correct:correct,score:score,level:level,dims:dims,weak:weak,minRate:min,wrongs:wrongs};
+}
+
+function showResult(){
+  var r = computeResult();
+  document.getElementById('vQuiz').style.display = 'none';
+  document.getElementById('vResult').style.display = 'block';
+  document.getElementById('progText').textContent = '测评结果';
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('rScore').textContent = String(r.score);
+  document.getElementById('rLevel').textContent = r.level;
+  document.getElementById('rSub').textContent = '共答对 ' + r.correct + ' / 10 题';
+  var dhtml = '';
+  for(var i=0;i<r.dims.length;i++){
+    var d = r.dims[i];
+    dhtml += '<div class="dim-row"><div class="dim-head"><span class="dim-name">' + d.name + '</span><span class="dim-rate">' + d.rate + '%</span></div><div class="dim-bar"><div class="dim-fill" style="width:' + d.rate + '%"></div></div><div class="dim-sub">答对 ' + d.correct + ' / ' + d.total + ' 题</div></div>';
+  }
+  document.getElementById('dimWrap').innerHTML = dhtml;
+  var whtml = '';
+  if(r.minRate === 100){
+    whtml = '<div class="weak-item">各维度正确率均为 100%，暂无明显薄弱项</div>';
+  }else{
+    for(var j=0;j<r.weak.length;j++){
+      whtml += '<div class="weak-item"><span class="weak-name">' + r.weak[j] + '</span><span>' + SUGGEST[r.weak[j]] + '</span></div>';
+    }
+  }
+  document.getElementById('weakWrap').innerHTML = whtml;
+  var xhtml = '';
+  if(r.wrongs.length === 0){
+    xhtml = '<div class="weak-item">全部答对，未发现错题</div>';
+  }else{
+    xhtml = '<div class="wrong-chips">';
+    for(var w2=0;w2<r.wrongs.length;w2++){
+      xhtml += '<span class="wrong-chip">第 ' + r.wrongs[w2].no + ' 题・' + r.wrongs[w2].dim + '</span>';
+    }
+    xhtml += '</div>';
+  }
+  document.getElementById('wrongWrap').innerHTML = xhtml;
+  window.scrollTo(0,0);
+}
+
+function startQuiz(){
+  answers = [];
+  for(var i=0;i<10;i++){ answers.push(null); }
+  cur = 0;
+  document.getElementById('vHome').style.display = 'none';
+  document.getElementById('vQuiz').style.display = 'block';
+  renderQuestion();
+  window.scrollTo(0,0);
+}
+
+function restart(){
+  answers = [];
+  for(var i=0;i<10;i++){ answers.push(null); }
+  cur = 0;
+  document.getElementById('vResult').style.display = 'none';
+  document.getElementById('vQuiz').style.display = 'block';
+  renderQuestion();
+  window.scrollTo(0,0);
+}
+
+</script>
 </body>
 </html>
