@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231E4E79'/%3E%3Ctext x='32' y='43' font-size='36' font-weight='700' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif'%3E%E7%96%BE%3C/text%3E%3C/svg%3E">
+<title>疾鉴・高血压健康素养测评</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{background:#F2F4F6;color:#2B2F33;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.6;-webkit-tap-highlight-color:transparent;}
+.wrap{max-width:800px;margin:0 auto;padding:16px 16px 48px;}
+/* 顶部进度指示 */
+.progress{margin:6px 0 16px;}
+.progress-text{font-size:14px;color:#5A6472;font-weight:600;margin-bottom:6px;}
+.progress-track{height:6px;background:#E1E6EB;border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;width:0;background:#2A6DB5;border-radius:3px;transition:width .3s;}
+/* 页面视图 */
+.view{display:none;}
+.card{background:#FFFFFF;border-radius:10px;box-shadow:0 2px 10px rgba(30,50,80,.08);overflow:hidden;}
+.card-head{padding:18px 20px;color:#FFFFFF;background:#1E4E79;}
+.card-head h1{font-size:24px;font-weight:700;line-height:1.4;}
+.card-head .sub{font-size:16px;opacity:.92;margin-top:4px;line-height:1.5;}
+.card-body{padding:20px;}
+/* 题目头部 */
+.qhead{background:#1E4E79;color:#FFFFFF;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.qhead .qnum{font-size:18px;font-weight:700;}
+.qhead .dim{font-size:13px;border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:2px 10px;font-weight:600;white-space:nowrap;}
+.qtopic{font-size:18px;font-weight:700;line-height:1.6;margin:4px 0 14px;}
+/* 选项 */
+.optrow{display:flex;align-items:flex-start;gap:12px;width:100%;min-height:48px;border:1.5px solid #DDE3E9;background:#FFFFFF;border-radius:8px;padding:12px 14px;font-size:16px;font-family:inherit;color:#2B2F33;text-align:left;cursor:pointer;margin-bottom:10px;line-height:1.5;transition:border-color .15s,background-color .15s;}
+.optrow:hover{border-color:#9FBBD8;}
+.optrow .letter{flex:0 0 28px;height:28px;border-radius:50%;background:#EFF3F7;color:#4A5560;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;margin-top:1px;}
+.optrow.sel{border-color:#2A6DB5;background:#E9F1F8;}
+.optrow.sel .letter{background:#2A6DB5;color:#FFFFFF;}
+/* 按钮 */
+.btn{display:block;width:100%;min-height:48px;padding:12px 16px;border:none;border-radius:8px;font-size:16px;font-weight:600;font-family:inherit;line-height:1.5;cursor:pointer;}
+.btn:active{opacity:.9;}
+.btn:focus-visible{outline:2px solid #1E4E79;outline-offset:2px;}
+.btn-next{background:#1E4E79;color:#FFFFFF;margin-top:8px;}
+.btn-next:hover{background:#18405F;}
+.btn-next.disabled{opacity:.45;cursor:not-allowed;}
+.btn-back{background:#FFFFFF;color:#4A5560;border:1px solid #C9D2DB;margin-top:10px;}
+.btn-back:hover{background:#F2F5F8;}
+/* 首页维度一览 */
+.dimchips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px;}
+.dimchip{background:#F2F5F8;border:1px solid #E1E6EB;color:#4A5560;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;}
+/* 结果页 */
+.score-wrap{text-align:center;padding:6px 0 16px;}
+.score-num{font-size:56px;font-weight:800;color:#1E4E79;line-height:1.2;}
+.score-unit{font-size:18px;color:#5A6472;font-weight:600;}
+.level-badge{display:inline-block;background:#1E4E79;color:#FFFFFF;border-radius:999px;padding:6px 20px;font-size:16px;font-weight:700;margin-top:8px;}
+.score-sub{font-size:14px;color:#8A929B;margin-top:8px;}
+.divider{border:none;border-top:1px solid #EDF0F3;margin:16px 0;}
+.sec-title{font-size:17px;font-weight:700;margin-bottom:8px;}
+.dim-row{margin-bottom:14px;}
+.dim-head{display:flex;justify-content:space-between;align-items:baseline;font-size:16px;}
+.dim-name{font-weight:700;}
+.dim-rate{font-weight:700;color:#2A6DB5;font-size:18px;}
+.dim-bar{height:8px;background:#E1E6EB;border-radius:4px;overflow:hidden;margin-top:6px;}
+.dim-fill{height:100%;background:#2A6DB5;border-radius:4px;width:0;transition:width .4s;}
+.dim-sub{font-size:13px;color:#8A929B;margin-top:4px;}
+.weak-item{display:flex;gap:8px;align-items:flex-start;padding:8px 0;font-size:15px;}
+.weak-name{color:#E67E22;font-weight:700;white-space:nowrap;}
+/* 错题回顾 */
+.wrong-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.wrong-chip{display:inline-block;background:#FBF3F3;border:1px solid #E8C7C7;color:#8C3A3A;border-radius:999px;padding:4px 14px;font-size:14px;font-weight:600;}
+/* 权威标注与风险边界 */
+.authority{font-size:13px;color:#9AA3AD;margin-top:14px;}
+.riskline{margin-top:12px;padding-top:10px;border-top:1px solid #EDF0F3;font-size:13px;color:#9AA3AD;}
+.cap{color:#B3BAC2;}
+@media (max-width:600px){
+  .wrap{padding:12px 12px 40px;}
+  .card-head h1{font-size:22px;}
+  .score-num{font-size:48px;}
+}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .card{box-shadow:none;}
+  body{background:#FFFFFF;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="progress">
+    <div class="progress-text" id="progText">首页</div>
+    <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+  </div>
+
+  <!-- 首页 -->
+  <div class="view" id="vHome" style="display:block;">
+    <div class="card">
+      <div class="card-head">
+        <h1>高血压健康素养测评</h1>
+        <div class="sub">疾病认知完整度量化评分・四大能力维度</div>
+      </div>
+      <div class="card-body">
+        <p>共 10 道单选题，满分 100 分。题目覆盖风险识别、就医判断、谣言辨别、日常管理四大维度，完成后自动生成总分、各维度正确率与薄弱项分析。</p>
+        <div class="dimchips">
+          <span class="dimchip">风险识别・3 题</span>
+          <span class="dimchip">就医判断・2 题</span>
+          <span class="dimchip">谣言辨别・2 题</span>
+          <span class="dimchip">日常管理・3 题</span>
+        </div>
+        <button class="btn btn-next" onclick="startQuiz()">开始测评</button>
+        <div class="authority"><span class="cap">权威标注：</span>依据《中国高血压防治指南（2024 年修订版）》</div>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本测评仅为健康素养评估，不构成诊断建议</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 答题页 -->
+  <div class="view" id="vQuiz">
+    <div class="card">
+      <div class="qhead">
+        <span class="qnum" id="qNum">第 1 题</span>
+        <span class="dim" id="qDim">风险识别</span>
+      </div>
+      <div class="card-body">
+        <div class="qtopic" id="qTopic"></div>
+        <div id="optsWrap"></div>
+        <button class="btn btn-next" id="btnNext" onclick="nextQ()">下一题</button>
+        <button class="btn btn-back" id="btnPrev" onclick="prevQ()" style="display:none;">上一题</button>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本测评仅为健康素养评估，不构成诊断建议</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 结果页 -->
+  <div class="view" id="vResult">
+    <div class="card">
+      <div class="card-head">
+        <h1>测评结果</h1>
+      </div>
+      <div class="card-body">
+        <div class="score-wrap">
+          <div><span class="score-num" id="rScore">0</span><span class="score-unit"> 分</span></div>
+          <div><span class="level-badge" id="rLevel"></span></div>
+          <div class="score-sub" id="rSub"></div>
+        </div>
+        <hr class="divider">
+        <div class="sec-title">维度正确率</div>
+        <div id="dimWrap"></div>
+        <hr class="divider">
+        <div class="sec-title">薄弱项分析</div>
+        <div id="weakWrap"></div>
+        <hr class="divider">
+        <div class="sec-title">错题回顾</div>
+        <div id="wrongWrap"></div>
+        <div class="authority"><span class="cap">权威标注：</span>依据《中国高血压防治指南（2024 年修订版）》</div>
+        <button class="btn btn-next" onclick="restart()">重新答题</button>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本测评仅为健康素养评估，不构成诊断建议</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var QUESTIONS = [
+  {q:'以下哪种血压测量结果最需要警惕高血压风险？',opts:['安静状态下收缩压 118/76mmHg','运动后立即测量 145/90mmHg','不同日期安静状态下两次均为 148/92mmHg','情绪激动时测量 150/95mmHg'],ans:2,dim:'风险识别'},
+  {q:'以下哪项不属于高血压的高危因素？',opts:['长期高盐饮食','规律有氧运动','家族有高血压病史','长期熬夜、精神压力大'],ans:1,dim:'风险识别'},
+  {q:'出现以下哪种情况属于高血压急症，需要立即就医？',opts:['血压 135/85mmHg，无不适','血压 165/105mmHg，伴随轻微头晕','血压 180/120mmHg，伴随胸痛、意识模糊','血压 140/90mmHg，偶尔头痛'],ans:2,dim:'风险识别'},
+  {q:'首次发现血压偏高且无明显不适，正确的做法是？',opts:['立即自行购买降压药服用','规范复测后仍偏高，前往心内科就诊','直接去医院输液降压','觉得没事，不用管'],ans:1,dim:'就医判断'},
+  {q:'怀疑自己有高血压，优先选择挂哪个科室？',opts:['骨科','心内科','皮肤科','急诊科'],ans:1,dim:'就医判断'},
+  {q:'以下说法正确的是？',opts:['吃芹菜可以根治高血压，不用吃药','血压正常了就可以自行停药','保健品不能替代降压药物治疗','喝降压茶可以彻底治愈高血压'],ans:2,dim:'谣言辨别'},
+  {q:'关于高血压的认知，以下哪项是谣言？',opts:['高血压需要长期规范管理','低盐饮食有助于控制血压','没有头晕头痛就等于没有高血压','戒烟限酒有利于血压稳定'],ans:2,dim:'谣言辨别'},
+  {q:'高血压日常饮食中，每日食盐摄入量建议不超过多少？',opts:['10 克','8 克','5 克','3 克'],ans:2,dim:'日常管理'},
+  {q:'以下哪种运动方式最适合高血压患者日常锻炼？',opts:['百米冲刺','快走、慢跑等有氧运动','大重量举重','熬夜后剧烈运动'],ans:1,dim:'日常管理'},
+  {q:'关于家庭血压测量，以下做法正确的是？',opts:['憋尿时测量','安静休息 5 分钟后，坐位上臂与心脏同高测量','运动后立刻测量','测量时说话、玩手机'],ans:1,dim:'日常管理'}
+];
+var DIMS = [
+  {name:'风险识别',idx:[0,1,2]},
+  {name:'就医判断',idx:[3,4]},
+  {name:'谣言辨别',idx:[5,6]},
+  {name:'日常管理',idx:[7,8,9]}
+];
+var SUGGEST = {
+  '风险识别':'建议加强血压异常信号与高危因素的学习，定期监测血压',
+  '就医判断':'建议了解正确的就医时机与科室选择，避免延误或过度就医',
+  '谣言辨别':'建议关注权威医学科普，警惕偏方与虚假健康信息',
+  '日常管理':'建议学习科学的饮食、运动与血压测量方法，建立健康生活习惯'
+};
+var answers = [];
+for(var i=0;i<10;i++){ answers.push(null); }
+var cur = 0;
+
+function renderOptions(){
+  var q = QUESTIONS[cur], html = '', L = ['A','B','C','D'];
+  for(var i=0;i<4;i++){
+    html += '<button class="optrow' + (answers[cur]===i ? ' sel' : '') + '" onclick="pick(' + i + ')"><span class="letter">' + L[i] + '</span><span>' + q.opts[i] + '</span></button>';
+  }
+  document.getElementById('optsWrap').innerHTML = html;
+}
+
+function updateNextState(){
+  document.getElementById('btnNext').classList.toggle('disabled', answers[cur] === null);
+}
+
+function renderQuestion(){
+  document.getElementById('qNum').textContent = '第 ' + (cur+1) + ' 题';
+  document.getElementById('qDim').textContent = QUESTIONS[cur].dim;
+  document.getElementById('qTopic').textContent = QUESTIONS[cur].q;
+  document.getElementById('progText').textContent = '第 ' + (cur+1) + ' 题 / 共 10 题';
+  document.getElementById('progFill').style.width = ((cur+1)/10*100) + '%';
+  document.getElementById('btnPrev').style.display = (cur === 0) ? 'none' : 'block';
+  document.getElementById('btnNext').textContent = (cur === 9) ? '提交测评' : '下一题';
+  renderOptions();
+  updateNextState();
+}
+
+function pick(i){
+  answers[cur] = i;
+  renderOptions();
+  updateNextState();
+}
+
+function nextQ(){
+  if(answers[cur] === null){ return; }
+  if(cur === 9){ showResult(); return; }
+  cur++;
+  renderQuestion();
+}
+
+function prevQ(){
+  if(cur > 0){ cur--; renderQuestion(); }
+}
+
+function computeResult(){
+  var correct = 0;
+  for(var i=0;i<10;i++){ if(answers[i] === QUESTIONS[i].ans){ correct++; } }
+  var score = correct * 10;
+  var level;
+  if(score >= 90){ level = '健康素养优秀'; }
+  else if(score >= 70){ level = '健康素养良好'; }
+  else if(score >= 60){ level = '健康素养及格'; }
+  else{ level = '健康素养待提升'; }
+  var dims = [], min = 101;
+  for(var d=0;d<DIMS.length;d++){
+    var c = 0;
+    for(var k=0;k<DIMS[d].idx.length;k++){ if(answers[DIMS[d].idx[k]] === QUESTIONS[DIMS[d].idx[k]].ans){ c++; } }
+    var rate = Math.round(c / DIMS[d].idx.length * 100);
+    dims.push({name:DIMS[d].name,correct:c,total:DIMS[d].idx.length,rate:rate});
+    if(rate < min){ min = rate; }
+  }
+  var weak = [];
+  for(var d2=0;d2<dims.length;d2++){ if(dims[d2].rate === min){ weak.push(dims[d2].name); } }
+  var wrongs = [];
+  for(var i2=0;i2<10;i2++){ if(answers[i2] !== QUESTIONS[i2].ans){ wrongs.push({no:i2+1,dim:QUESTIONS[i2].dim}); } }
+  return {correct:correct,score:score,level:level,dims:dims,weak:weak,minRate:min,wrongs:wrongs};
+}
+
+function showResult(){
+  var r = computeResult();
+  document.getElementById('vQuiz').style.display = 'none';
+  document.getElementById('vResult').style.display = 'block';
+  document.getElementById('progText').textContent = '测评结果';
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('rScore').textContent = String(r.score);
+  document.getElementById('rLevel').textContent = r.level;
+  document.getElementById('rSub').textContent = '共答对 ' + r.correct + ' / 10 题';
+  var dhtml = '';
+  for(var i=0;i<r.dims.length;i++){
+    var d = r.dims[i];
+    dhtml += '<div class="dim-row"><div class="dim-head"><span class="dim-name">' + d.name + '</span><span class="dim-rate">' + d.rate + '%</span></div><div class="dim-bar"><div class="dim-fill" style="width:' + d.rate + '%"></div></div><div class="dim-sub">答对 ' + d.correct + ' / ' + d.total + ' 题</div></div>';
+  }
+  document.getElementById('dimWrap').innerHTML = dhtml;
+  var whtml = '';
+  if(r.minRate === 100){
+    whtml = '<div class="weak-item">各维度正确率均为 100%，暂无明显薄弱项</div>';
+  }else{
+    for(var j=0;j<r.weak.length;j++){
+      whtml += '<div class="weak-item"><span class="weak-name">' + r.weak[j] + '</span><span>' + SUGGEST[r.weak[j]] + '</span></div>';
+    }
+  }
+  document.getElementById('weakWrap').innerHTML = whtml;
+  var xhtml = '';
+  if(r.wrongs.length === 0){
+    xhtml = '<div class="weak-item">全部答对，未发现错题</div>';
+  }else{
+    xhtml = '<div class="wrong-chips">';
+    for(var w2=0;w2<r.wrongs.length;w2++){
+      xhtml += '<span class="wrong-chip">第 ' + r.wrongs[w2].no + ' 题・' + r.wrongs[w2].dim + '</span>';
+    }
+    xhtml += '</div>';
+  }
+  document.getElementById('wrongWrap').innerHTML = xhtml;
+  window.scrollTo(0,0);
+}
+
+function startQuiz(){
+  answers = [];
+  for(var i=0;i<10;i++){ answers.push(null); }
+  cur = 0;
+  document.getElementById('vHome').style.display = 'none';
+  document.getElementById('vQuiz').style.display = 'block';
+  renderQuestion();
+  window.scrollTo(0,0);
+}
+
+function restart(){
+  answers = [];
+  for(var i=0;i<10;i++){ answers.push(null); }
+  cur = 0;
+  document.getElementById('vResult').style.display = 'none';
+  document.getElementById('vQuiz').style.display = 'block';
+  renderQuestion();
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23A02636'/%3E%3Ctext x='32' y='43' font-size='36' font-weight='700' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif'%3E%E7%96%BE%3C/text%3E%3C/svg%3E">
+<title>疾鉴・高血压疾病认知决策树</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{background:#F2F4F6;color:#2B2F33;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.6;-webkit-tap-highlight-color:transparent;}
+.wrap{max-width:800px;margin:0 auto;padding:16px 16px 48px;}
+/* 顶部进度指示 */
+.progress{margin:6px 0 16px;}
+.progress-text{font-size:14px;color:#5A6472;font-weight:600;margin-bottom:6px;}
+.progress-track{height:6px;background:#E1E6EB;border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;width:0;background:#2A6DB5;border-radius:3px;transition:width .3s;}
+/* 节点卡片 */
+.node{display:none;}
+.card{background:#FFFFFF;border-radius:10px;box-shadow:0 2px 10px rgba(30,50,80,.08);overflow:hidden;}
+.card-head{padding:18px 20px;color:#FFFFFF;}
+.card-head.home{background:#A02636;}
+.card-head.normal{background:#1E4E79;}
+.card-head h1{font-size:24px;font-weight:700;line-height:1.4;}
+.card-head .sub{font-size:16px;opacity:.92;margin-top:4px;line-height:1.5;}
+.card-body{padding:20px;}
+/* 核心问题 */
+.qbox{background:#E9F1F8;border-left:4px solid #1E4E79;border-radius:0 6px 6px 0;padding:12px 14px;margin:4px 0 12px;font-size:16px;}
+.qbox .qlabel{display:block;font-size:13px;color:#5B7B9B;font-weight:600;margin-bottom:2px;}
+/* 正文列表 */
+.olist{list-style:none;margin:10px 0;}
+.olist li{display:flex;align-items:flex-start;gap:10px;padding:7px 0;font-size:16px;}
+.olist .num{flex:0 0 26px;height:26px;border-radius:50%;background:#1E4E79;color:#FFFFFF;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+/* 结论建议 / 最终定性标签 */
+.concl-caption{font-size:13px;color:#8A929B;margin:14px 0 6px;}
+.tag{display:inline-block;padding:6px 14px;border-radius:999px;color:#FFFFFF;font-size:15px;font-weight:600;line-height:1.5;}
+.tag.green{background:#2E7D32;}
+.tag.red{background:#C62828;}
+.tag.blue{background:#2A6DB5;}
+/* 按钮 */
+.btn{display:block;width:100%;min-height:48px;padding:12px 16px;border:none;border-radius:8px;font-size:16px;font-weight:600;font-family:inherit;line-height:1.5;cursor:pointer;}
+.btn:active{opacity:.9;}
+.btn:focus-visible{outline:2px solid #1E4E79;outline-offset:2px;}
+.btn-next{background:#2A6DB5;color:#FFFFFF;margin-top:14px;}
+.btn-next:hover{background:#2565A8;}
+.btn-back{background:#FFFFFF;color:#4A5560;border:1px solid #C9D2DB;margin-top:10px;}
+.btn-back:hover{background:#F2F5F8;}
+/* 分支选项（低风险 / 高风险） */
+.opt{display:block;width:100%;text-align:left;border:none;border-radius:10px;padding:14px 16px;color:#FFFFFF;cursor:pointer;font-family:inherit;margin-top:12px;}
+.opt:active{opacity:.9;}
+.opt.low{background:#2E7D32;}
+.opt.low:hover{background:#276A2A;}
+.opt.high{background:#C62828;}
+.opt.high:hover{background:#B02424;}
+.opt .opt-title{display:block;font-size:17px;font-weight:700;line-height:1.5;}
+.opt .opt-cond{display:block;font-size:14px;margin-top:6px;line-height:1.55;opacity:.96;}
+.opt .opt-tag{display:inline-block;margin-top:8px;padding:2px 12px;border:1px solid rgba(255,255,255,.85);border-radius:999px;font-size:13px;font-weight:600;}
+/* 年龄适配切换 */
+.agetoggle{display:flex;gap:10px;margin:14px 0 4px;}
+.agebtn{flex:1;min-height:48px;border:1px solid #C9D2DB;background:#FFFFFF;color:#4A5560;border-radius:8px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;}
+.agebtn.active{background:#2A6DB5;border-color:#2A6DB5;color:#FFFFFF;}
+.ageline{padding:10px 12px;border:1px solid transparent;border-radius:8px;background:#F7F9FB;font-size:15px;margin-top:8px;transition:background .2s,border-color .2s;}
+.ageline.hl{background:#E9F1F8;border-color:#1E4E79;font-weight:600;}
+/* 误区条目：谣言 → 真相 */
+.rumor{margin-top:12px;border:1px solid #E7ECF1;border-radius:8px;overflow:hidden;}
+.rumor .ru{background:#FBF3F3;border-left:4px solid #C62828;padding:10px 14px;font-size:15px;}
+.rumor .truth{background:#F4FAF4;border-left:4px solid #2E7D32;padding:10px 14px;font-size:15px;}
+.rumor b{font-size:13px;margin-right:6px;}
+.rumor .ru b{color:#C62828;}
+.rumor .truth b{color:#2E7D32;}
+/* 最终总结 */
+.summary{background:#E9F1F8;border-left:4px solid #2A6DB5;border-radius:0 6px 6px 0;padding:12px 14px;margin-top:14px;font-size:16px;font-weight:600;}
+/* 权威标注与风险边界 */
+.authority{font-size:13px;color:#9AA3AD;margin-top:14px;}
+.riskline{margin-top:12px;padding-top:10px;border-top:1px solid #EDF0F3;font-size:13px;color:#9AA3AD;}
+.cap{color:#B3BAC2;}
+/* 节点 2 说明文字 */
+.explain{font-size:14px;color:#8A929B;margin-top:10px;}
+@media (max-width:600px){
+  .wrap{padding:12px 12px 40px;}
+  .card-head h1{font-size:22px;}
+}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .card{box-shadow:none;}
+  body{background:#FFFFFF;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="progress">
+    <div class="progress-text" id="progText">首页</div>
+    <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+  </div>
+
+  <!-- 节点 0：首页入口（第 0 级） -->
+  <div class="node" id="n0" style="display:block;">
+    <div class="card">
+      <div class="card-head home">
+        <h1>发现血压偏高</h1>
+        <div class="sub">疾病认知决策树・高血压版</div>
+      </div>
+      <div class="card-body">
+        <p>身体出现异常信号，按真实决策路径逐步判断，获取对应健康建议</p>
+        <button class="btn btn-next" onclick="goTo(1)">开始判断</button>
+        <div class="authority"><span class="cap">权威标注：</span>依据《中国高血压防治指南（2024 年修订版）》</div>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊断建议</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 节点 1：异常识别（第 1 级） -->
+  <div class="node" id="n1">
+    <div class="card">
+      <div class="card-head normal">
+        <h1>单次测量偏高 = 确诊高血压吗？</h1>
+      </div>
+      <div class="card-body">
+        <div class="qbox"><span class="qlabel">核心问题</span>血压 150/95mmHg 意味着什么？单次测量偏高能否确诊？</div>
+        <ol class="olist">
+          <li><span class="num">1</span><span>单次血压升高不代表确诊高血压，需先排除测量误差、情绪激动、运动后、憋尿等干扰因素</span></li>
+          <li><span class="num">2</span><span>标准测量需安静休息至少 5 分钟，取坐位上臂与心脏同高位置测量</span></li>
+        </ol>
+        <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》第 3 章第 2 节</div>
+        <button class="btn btn-next" onclick="goTo(2)">下一步，判断风险程度</button>
+        <button class="btn btn-back" onclick="goTo(0)">返回上一步</button>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊断建议</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 节点 2：风险判断（第 2 级・核心分流节点） -->
+  <div class="node" id="n2">
+    <div class="card">
+      <div class="card-head normal">
+        <h1>你的情况严重吗？</h1>
+      </div>
+      <div class="card-body">
+        <div class="qbox"><span class="qlabel">核心问题</span>收缩压和舒张压哪个更重要？伴随头痛 / 视物模糊吗？</div>
+        <p class="explain">请根据自身血压数值和伴随症状选择对应路径</p>
+        <button class="opt low" onclick="goTo(3)">
+          <span class="opt-title">低风险・仅单次偏高，无不适症状</span>
+          <span class="opt-cond">判定条件：血压＜160/100mmHg，无头痛、头晕、胸闷、视物模糊等症状</span>
+          <span class="opt-tag">建议复测观察</span>
+        </button>
+        <button class="opt high" onclick="goTo(4)">
+          <span class="opt-title">高风险・血压明显升高或伴随不适</span>
+          <span class="opt-cond">判定条件：血压≥160/100mmHg，或伴随头痛、头晕、胸闷、视物模糊等症状</span>
+          <span class="opt-tag">建议尽快就医</span>
+        </button>
+        <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》</div>
+        <button class="btn btn-back" onclick="goTo(1)">返回上一步</button>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊断建议</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 节点 3：复测指引（第 3 级・低风险路径专属） -->
+  <div class="node" id="n3">
+    <div class="card">
+      <div class="card-head normal">
+        <h1>怎么复测才准确？</h1>
+      </div>
+      <div class="card-body">
+        <div class="qbox"><span class="qlabel">核心问题</span>观察周期与记录方法是什么？</div>
+        <ol class="olist">
+          <li><span class="num">1</span><span>规范测量姿势：坐位、安静休息 5 分钟、上臂与心脏同高、不说话不憋尿</span></li>
+          <li><span class="num">2</span><span>不同日期测量 2 次及以上，每次测量 2-3 遍取平均值</span></li>
+          <li><span class="num">3</span><span>做好记录，标注测量时间、数值、当时状态</span></li>
+        </ol>
+        <div class="concl-caption">结论建议</div>
+        <span class="tag green">建议复测观察，多次均偏高需警惕</span>
+        <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》</div>
+        <button class="btn btn-next" onclick="node5Prev=3;goTo(5)">下一步，日常管理建议</button>
+        <button class="btn btn-back" onclick="goTo(2)">返回上一步</button>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊断建议</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 节点 4：就医边界（第 4 级・高风险路径专属） -->
+  <div class="node" id="n4">
+    <div class="card">
+      <div class="card-head normal">
+        <h1>什么情况必须去医院？</h1>
+      </div>
+      <div class="card-body">
+        <div class="qbox"><span class="qlabel">核心问题</span>挂什么科？就医前该做什么准备？</div>
+        <ol class="olist">
+          <li><span class="num">1</span><span>建议就诊科室：心内科</span></li>
+          <li><span class="num">2</span><span>就医前准备：暂停剧烈运动、充分休息、携带既往血压测量记录</span></li>
+          <li><span class="num">3</span><span>若出现胸痛、意识模糊等紧急情况，请立即拨打 120</span></li>
+        </ol>
+        <div class="concl-caption">结论建议</div>
+        <span class="tag red">建议尽快就医</span>
+        <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》</div>
+        <button class="btn btn-next" onclick="node5Prev=4;goTo(5)">下一步，日常管理建议</button>
+        <button class="btn btn-back" onclick="goTo(2)">返回上一步</button>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊疗建议</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 节点 5：日常管控（第 5 级・两条路径汇聚） -->
+  <div class="node" id="n5">
+    <div class="card">
+      <div class="card-head normal">
+        <h1>平时该做些什么？</h1>
+      </div>
+      <div class="card-body">
+        <div class="qbox"><span class="qlabel">核心问题</span>在家做什么能稳血压？</div>
+        <ol class="olist">
+          <li><span class="num">1</span><span>饮食：低盐饮食，每日食盐＜5 克，减少高脂高糖食物</span></li>
+          <li><span class="num">2</span><span>运动：规律有氧运动，如快走、慢跑，每周≥150 分钟</span></li>
+          <li><span class="num">3</span><span>监测：定期监测血压，做好记录</span></li>
+          <li><span class="num">4</span><span>作息：避免熬夜、长期精神紧张，戒烟限酒</span></li>
+        </ol>
+        <div class="agetoggle">
+          <button class="agebtn" id="ageBtnY" onclick="toggleAge('y')">中青年版</button>
+          <button class="agebtn" id="ageBtnO" onclick="toggleAge('o')">老年版</button>
+        </div>
+        <div class="ageline" id="ageLineY">中青年版：重点关注生活方式干预，排查继发性高血压因素</div>
+        <div class="ageline" id="ageLineO">老年版：重点关注体位性低血压、合并症与跌倒风险</div>
+        <div class="concl-caption">结论建议</div>
+        <span class="tag blue">建议日常管理，定期监测</span>
+        <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》</div>
+        <button class="btn btn-next" onclick="goTo(6)">下一步，避开常见误区</button>
+        <button class="btn btn-back" onclick="goTo(node5Prev)">返回上一步</button>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成治疗建议</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 节点 6：误区辟谣（第 6 级・最终终点） -->
+  <div class="node" id="n6">
+    <div class="card">
+      <div class="card-head normal">
+        <h1>流行说法哪些是坑？</h1>
+      </div>
+      <div class="card-body">
+        <div class="qbox"><span class="qlabel">核心问题</span>流行说法哪些是谣言？</div>
+        <div class="rumor">
+          <div class="ru"><b>谣言</b>「吃芹菜 / 喝芹菜汁能根治高血压」</div>
+          <div class="truth"><b>真相</b>食物不能替代药物治疗，芹菜仅可作为健康饮食的一部分</div>
+        </div>
+        <div class="rumor">
+          <div class="ru"><b>谣言</b>「血压正常了就能自行停药」</div>
+          <div class="truth"><b>真相</b>血压正常往往是药物维持的结果，停药后多会反弹，减药停药需遵医嘱</div>
+        </div>
+        <div class="rumor">
+          <div class="ru"><b>谣言</b>「没有不舒服就不用管血压」</div>
+          <div class="truth"><b>真相</b>高血压早期多无症状，但血管损害持续存在，规范监测与随访是关键</div>
+        </div>
+        <div class="summary">最终总结：血压管理需遵循医学指南，科学管控，不信偏方谣言</div>
+        <div class="concl-caption">最终定性</div>
+        <span class="tag blue">建议日常管理 + 定期监测</span>
+        <div class="authority"><span class="cap">权威标注：</span>来源《中国高血压防治指南（2024 年修订版）》</div>
+        <button class="btn btn-next" onclick="resetAll();goTo(0)">重新开始</button>
+        <button class="btn btn-back" onclick="goTo(5)">返回上一步</button>
+        <div class="riskline"><span class="cap">风险边界提示：</span>本内容为健康教育，不构成诊断或治疗建议</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var PROGRESS_TEXT = ['首页','第 1 级 / 共 6 级・异常识别','第 2 级 / 共 6 级・风险判断','第 3 级 / 共 6 级・复测指引','第 4 级 / 共 6 级・就医边界','第 5 级 / 共 6 级・日常管控','第 6 级 / 共 6 级・误区辟谣'];
+var node5Prev = 3;
+var ageMode = null;
+
+function goTo(id){
+  for(var i=0;i<=6;i++){
+    document.getElementById('n'+i).style.display = 'none';
+  }
+  document.getElementById('n'+id).style.display = 'block';
+  document.getElementById('progText').textContent = PROGRESS_TEXT[id];
+  document.getElementById('progFill').style.width = (id/6*100) + '%';
+  window.scrollTo(0,0);
+}
+
+function toggleAge(m){
+  ageMode = (ageMode === m) ? null : m;
+  document.getElementById('ageBtnY').classList.toggle('active', ageMode === 'y');
+  document.getElementById('ageBtnO').classList.toggle('active', ageMode === 'o');
+  document.getElementById('ageLineY').classList.toggle('hl', ageMode === 'y');
+  document.getElementById('ageLineO').classList.toggle('hl', ageMode === 'o');
+}
+
+function resetAll(){
+  ageMode = null;
+  document.getElementById('ageBtnY').classList.remove('active');
+  document.getElementById('ageBtnO').classList.remove('active');
+  document.getElementById('ageLineY').classList.remove('hl');
+  document.getElementById('ageLineO').classList.remove('hl');
+  node5Prev = 3;
+}
+</script>
+</body>
+</html>
