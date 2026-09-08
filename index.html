@@ -23,7 +23,17 @@ body{-webkit-tap-highlight-color:transparent;}
 }
 @media print{
   .topnav{display:none !important;}
+  .disc-mask{display:none !important;}
 }
+
+/* 首次打开免责声明弹窗 */
+.disc-mask{position:fixed;inset:0;background:rgba(20,40,60,.55);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px;}
+.disc-box{background:#FFFFFF;border-radius:14px;max-width:420px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.25);overflow:hidden;}
+.disc-head{background:#1E4E79;color:#FFFFFF;padding:14px 20px;font-size:17px;font-weight:700;}
+.disc-body{padding:18px 20px 20px;font-size:15px;line-height:1.9;color:#2B2F33;}
+.disc-body b{color:#1E4E79;}
+.disc-btn{display:block;width:100%;min-height:48px;margin-top:16px;border:none;border-radius:8px;background:#A02636;color:#FFFFFF;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;line-height:1.5;}
+.disc-btn:active{opacity:.9;}
 
 #viewHome, #viewHome * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -717,10 +727,18 @@ body{-webkit-tap-highlight-color:transparent;}
 
 #viewQuiz .weak-name {color:#E67E22;font-weight:700;white-space:nowrap;}
 
-/* 错题回顾 */
-#viewQuiz .wrong-chips {display:flex;flex-wrap:wrap;gap:8px;}
+/* 错题回顾（含解析） */
+#viewQuiz .wrong-item {background:#FBF8F8;border:1px solid #E8D5D5;border-left:4px solid #C62828;border-radius:8px;padding:12px 14px;margin-bottom:12px;}
 
-#viewQuiz .wrong-chip {display:inline-block;background:#FBF3F3;border:1px solid #E8C7C7;color:#8C3A3A;border-radius:999px;padding:4px 14px;font-size:14px;font-weight:600;}
+#viewQuiz .wrong-head {font-size:14px;font-weight:700;color:#C62828;margin-bottom:6px;}
+
+#viewQuiz .wrong-q {font-size:15px;font-weight:600;color:#2B2F33;line-height:1.7;margin-bottom:8px;}
+
+#viewQuiz .wrong-a {font-size:14px;color:#C62828;line-height:1.7;}
+
+#viewQuiz .wrong-c {font-size:14px;color:#2E7D32;line-height:1.7;}
+
+#viewQuiz .wrong-e {font-size:14px;color:#4A5560;line-height:1.8;background:#F2F5F8;border-radius:6px;padding:8px 12px;margin-top:8px;}
 
 /* 权威标注与风险边界 */
 #viewQuiz .authority {font-size:13px;color:#9AA3AD;margin-top:14px;}
@@ -753,6 +771,15 @@ body{-webkit-tap-highlight-color:transparent;}
 </style>
 </head>
 <body>
+<div class="disc-mask" id="discMask">
+  <div class="disc-box">
+    <div class="disc-head">健康科普免责声明</div>
+    <div class="disc-body">
+      本平台内容仅供健康科普教育参考，<b>不构成医疗诊断或治疗建议</b>。疾病诊断和治疗请以正规医疗机构医生意见为准。如身体不适，请及时就医。
+      <button class="disc-btn" onclick="acceptDisc()">我已了解，进入体验</button>
+    </div>
+  </div>
+</div>
 <nav class="topnav">
   <span class="brand">疾鉴<em>产品原型合集</em></span>
   <span class="tabs">
@@ -1052,6 +1079,15 @@ body{-webkit-tap-highlight-color:transparent;}
 </div>
 <script>
 
+function acceptDisc(){
+  try{ sessionStorage.setItem('jijian_disc','1'); }catch(e){}
+  var m = document.getElementById('discMask');
+  if(m){ m.style.display = 'none'; }
+}
+(function(){
+  try{ if(sessionStorage.getItem('jijian_disc') === '1'){ acceptDisc(); } }catch(e){}
+})();
+
 function showView(v){
   document.getElementById('viewHome').style.display = (v==='home')?'flex':'none';
   document.getElementById('viewTree').style.display = (v==='tree')?'block':'none';
@@ -1094,16 +1130,16 @@ function showView(v){
     }
   
 var QUESTIONS = [
-  {q:'以下哪种血压测量结果最需要警惕高血压风险？',opts:['安静状态下收缩压 118/76mmHg','运动后立即测量 145/90mmHg','不同日期安静状态下两次均为 148/92mmHg','情绪激动时测量 150/95mmHg'],ans:2,dim:'风险识别'},
-  {q:'以下哪项不属于高血压的高危因素？',opts:['长期高盐饮食','规律有氧运动','家族有高血压病史','长期熬夜、精神压力大'],ans:1,dim:'风险识别'},
-  {q:'出现以下哪种情况属于高血压急症，需要立即就医？',opts:['血压 135/85mmHg，无不适','血压 165/105mmHg，伴随轻微头晕','血压 180/120mmHg，伴随胸痛、意识模糊','血压 140/90mmHg，偶尔头痛'],ans:2,dim:'风险识别'},
-  {q:'首次发现血压偏高且无明显不适，正确的做法是？',opts:['立即自行购买降压药服用','规范复测后仍偏高，前往心内科就诊','直接去医院输液降压','觉得没事，不用管'],ans:1,dim:'就医判断'},
-  {q:'怀疑自己有高血压，优先选择挂哪个科室？',opts:['骨科','心内科','皮肤科','急诊科'],ans:1,dim:'就医判断'},
-  {q:'以下说法正确的是？',opts:['吃芹菜可以根治高血压，不用吃药','血压正常了就可以自行停药','保健品不能替代降压药物治疗','喝降压茶可以彻底治愈高血压'],ans:2,dim:'谣言辨别'},
-  {q:'关于高血压的认知，以下哪项是谣言？',opts:['高血压需要长期规范管理','低盐饮食有助于控制血压','没有头晕头痛就等于没有高血压','戒烟限酒有利于血压稳定'],ans:2,dim:'谣言辨别'},
-  {q:'高血压日常饮食中，每日食盐摄入量建议不超过多少？',opts:['10 克','8 克','5 克','3 克'],ans:2,dim:'日常管理'},
-  {q:'以下哪种运动方式最适合高血压患者日常锻炼？',opts:['百米冲刺','快走、慢跑等有氧运动','大重量举重','熬夜后剧烈运动'],ans:1,dim:'日常管理'},
-  {q:'关于家庭血压测量，以下做法正确的是？',opts:['憋尿时测量','安静休息 5 分钟后，坐位上臂与心脏同高测量','运动后立刻测量','测量时说话、玩手机'],ans:1,dim:'日常管理'}
+  {q:'以下哪种血压测量结果最需要警惕高血压风险？',opts:['安静状态下收缩压 118/76mmHg','运动后立即测量 145/90mmHg','不同日期安静状态下两次均为 148/92mmHg','情绪激动时测量 150/95mmHg'],ans:2,dim:'风险识别',exp:'单次测量或运动后、情绪激动时测量易受干扰，不能说明问题；不同日期安静状态下多次测量均偏高，才是需要警惕的信号'},
+  {q:'以下哪项不属于高血压的高危因素？',opts:['长期高盐饮食','规律有氧运动','家族有高血压病史','长期熬夜、精神压力大'],ans:1,dim:'风险识别',exp:'长期高盐饮食、家族高血压病史、长期熬夜精神紧张均属于高血压高危因素；规律有氧运动有助于血压健康，不属于高危因素'},
+  {q:'出现以下哪种情况属于高血压急症，需要立即就医？',opts:['血压 135/85mmHg，无不适','血压 165/105mmHg，伴随轻微头晕','血压 180/120mmHg，伴随胸痛、意识模糊','血压 140/90mmHg，偶尔头痛'],ans:2,dim:'风险识别',exp:'血压 180/120mmHg 并伴随胸痛、意识模糊属于高血压急症，需要立即就医；其他选项的血压水平与症状未达到急症标准'},
+  {q:'首次发现血压偏高且无明显不适，正确的做法是？',opts:['立即自行购买降压药服用','规范复测后仍偏高，前往心内科就诊','直接去医院输液降压','觉得没事，不用管'],ans:1,dim:'就医判断',exp:'首次发现血压偏高不应自行购药服用，也不应放任不管；规范复测后仍偏高，应前往心内科就诊'},
+  {q:'怀疑自己有高血压，优先选择挂哪个科室？',opts:['骨科','心内科','皮肤科','急诊科'],ans:1,dim:'就医判断',exp:'高血压属于心血管疾病范畴，怀疑有高血压应优先挂心内科；骨科、皮肤科不针对血压问题，急诊科用于紧急情况'},
+  {q:'以下说法正确的是？',opts:['吃芹菜可以根治高血压，不用吃药','血压正常了就可以自行停药','保健品不能替代降压药物治疗','喝降压茶可以彻底治愈高血压'],ans:2,dim:'谣言辨别',exp:'吃芹菜根治高血压、血压正常就自行停药、降压茶彻底治愈高血压都是谣言；保健品不能替代规范的药物治疗'},
+  {q:'关于高血压的认知，以下哪项是谣言？',opts:['高血压需要长期规范管理','低盐饮食有助于控制血压','没有头晕头痛就等于没有高血压','戒烟限酒有利于血压稳定'],ans:2,dim:'谣言辨别',exp:'高血压早期多无明显症状，「没有头晕头痛就等于没有高血压」是常见谣言；规范监测才是及时发现高血压的关键'},
+  {q:'高血压日常饮食中，每日食盐摄入量建议不超过多少？',opts:['10 克','8 克','5 克','3 克'],ans:2,dim:'日常管理',exp:'高血压患者日常饮食建议每日食盐摄入量不超过 5 克，减少高盐食物摄入'},
+  {q:'以下哪种运动方式最适合高血压患者日常锻炼？',opts:['百米冲刺','快走、慢跑等有氧运动','大重量举重','熬夜后剧烈运动'],ans:1,dim:'日常管理',exp:'规律有氧运动（如快走、慢跑）适合高血压患者日常锻炼；百米冲刺、大重量举重等剧烈运动不推荐'},
+  {q:'关于家庭血压测量，以下做法正确的是？',opts:['憋尿时测量','安静休息 5 分钟后，坐位上臂与心脏同高测量','运动后立刻测量','测量时说话、玩手机'],ans:1,dim:'日常管理',exp:'规范测量应在安静休息 5 分钟后取坐位测量，上臂与心脏同高；憋尿、运动后立即测量、说话玩手机都会影响读数'}
 ];
 var DIMS = [
   {name:'风险识别',idx:[0,1,2]},
@@ -1182,7 +1218,7 @@ function computeResult(){
   var weak = [];
   for(var d2=0;d2<dims.length;d2++){ if(dims[d2].rate === min){ weak.push(dims[d2].name); } }
   var wrongs = [];
-  for(var i2=0;i2<10;i2++){ if(answers[i2] !== QUESTIONS[i2].ans){ wrongs.push({no:i2+1,dim:QUESTIONS[i2].dim}); } }
+  for(var i2=0;i2<10;i2++){ if(answers[i2] !== QUESTIONS[i2].ans){ wrongs.push({no:i2+1,dim:QUESTIONS[i2].dim,q:QUESTIONS[i2].q,your:QUESTIONS[i2].opts[answers[i2]],right:QUESTIONS[i2].opts[QUESTIONS[i2].ans],exp:QUESTIONS[i2].exp}); } }
   return {correct:correct,score:score,level:level,dims:dims,weak:weak,minRate:min,wrongs:wrongs};
 }
 
@@ -1214,11 +1250,10 @@ function showResult(){
   if(r.wrongs.length === 0){
     xhtml = '<div class="weak-item">全部答对，未发现错题</div>';
   }else{
-    xhtml = '<div class="wrong-chips">';
     for(var w2=0;w2<r.wrongs.length;w2++){
-      xhtml += '<span class="wrong-chip">第 ' + r.wrongs[w2].no + ' 题・' + r.wrongs[w2].dim + '</span>';
+      var w = r.wrongs[w2];
+      xhtml += '<div class="wrong-item"><div class="wrong-head">第 ' + w.no + ' 题・' + w.dim + '</div><div class="wrong-q">' + w.q + '</div><div class="wrong-a">你的答案：' + w.your + '</div><div class="wrong-c">正确答案：' + w.right + '</div><div class="wrong-e">' + w.exp + '</div></div>';
     }
-    xhtml += '</div>';
   }
   document.getElementById('wrongWrap').innerHTML = xhtml;
   window.scrollTo(0,0);
